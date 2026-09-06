@@ -291,8 +291,16 @@ window.addEventListener("keydown", (e) => {
   }
 });
 
+function clearNoteHash() {
+  if (location.hash !== "#note") return;
+  history.replaceState(null, "", `${location.pathname}${location.search}`);
+}
+
 function enterSite() {
-  if (!intro || document.body.classList.contains("ready")) return;
+  if (!intro || document.body.classList.contains("ready")) {
+    clearNoteHash();
+    return;
+  }
 
   document.documentElement.classList.remove("intro-lock");
   document.body.classList.remove("intro-lock");
@@ -301,11 +309,12 @@ function enterSite() {
   if (topbar) topbar.hidden = false;
   if (pages[0]) {
     pages[0].classList.add("is-active");
+    pages[0].classList.add("is-settled");
     updateChrome();
   }
+  clearNoteHash();
 
   setTimeout(() => {
-    pages[0]?.classList.add("is-settled");
     intro.remove();
   }, 1100);
 
@@ -317,10 +326,24 @@ function enterSite() {
 window.enterSite = enterSite;
 
 if (enter) {
-  enter.addEventListener("click", enterSite);
+  enter.addEventListener("click", (e) => {
+    e.preventDefault();
+    enterSite();
+  });
 }
 
-muteBtn.addEventListener("click", () => setMuted(!muted));
+const nextPage = document.getElementById("nextPage");
+if (nextPage) {
+  nextPage.addEventListener("click", () => goTo(pageIndex + 1));
+}
+
+if (muteBtn) {
+  muteBtn.addEventListener("click", () => setMuted(!muted));
+}
+
+if (location.hash === "#note") {
+  enterSite();
+}
 
 loadPhotos();
 initTilts();

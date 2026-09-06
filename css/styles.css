@@ -78,9 +78,14 @@ html:has(#note:target) .intro {
   pointer-events: none;
 }
 
-#note:target {
+body:not(.ready) #note:target {
   transform: translateY(0);
   z-index: 46;
+}
+
+body.ready .topbar[hidden],
+body:has(#note:target) .topbar[hidden] {
+  display: flex;
 }
 
 .topbar {
@@ -459,6 +464,22 @@ button {
 .note__ink .intro__btn {
   margin: 48px auto 0;
   display: flex;
+}
+
+.note__next {
+  margin: 28px auto 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 28px;
+  border-radius: 999px;
+  background: var(--cta);
+  color: #fff;
+  font-size: 0.86rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  touch-action: manipulation;
 }
 
 /* SLIDES */
