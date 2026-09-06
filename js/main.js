@@ -15,6 +15,7 @@ let audio = null;
 let ytPlayer = null;
 let muted = false;
 let usingYouTube = false;
+let musicPlaying = false;
 let pageIndex = 0;
 let moving = false;
 
@@ -58,92 +59,127 @@ function burstPetals(count = 10) {
   }
 }
 
+function setMusicLabel(playing) {
+  musicPlaying = playing;
+  if (!nowPlaying) return;
+  nowPlaying.hidden = false;
+  nowPlaying.classList.toggle("is-muted", muted || !playing);
+  nowPlaying.classList.toggle("needs-play", !playing);
+  const label = document.getElementById("nowPlayingLabel");
+  if (label) label.textContent = playing ? "now playing" : "tap to play";
+  if (muteBtn) muteBtn.setAttribute("aria-label", playing && !muted ? "Mute song" : "Play song");
+}
+
 function loadYouTubeApi() {
   return new Promise((resolve) => {
     if (window.YT && window.YT.Player) {
       resolve();
       return;
     }
-    const tag = document.createElement("script");
-    tag.src = "https://www.youtube.com/iframe_api";
-    document.head.appendChild(tag);
+    const existing = document.querySelector('script[src="https://www.youtube.com/iframe_api"]');
+    if (!existing) {
+      const tag = document.createElement("script");
+      tag.src = "https://www.youtube.com/iframe_api";
+      document.head.appendChild(tag);
+    }
     window.onYouTubeIframeAPIReady = resolve;
   });
 }
 
-function startYouTube() {
-  return loadYouTubeApi().then(
-    () =>
-      new Promise((resolve, reject) => {
-        const mount = document.getElementById("ytWrap");
-        mount.innerHTML = "";
-        const host = document.createElement("div");
-        host.id = "ytPlayer";
-        mount.appendChild(host);
-        const timeout = setTimeout(() => reject(new Error("youtube timeout")), 4000);
-        ytPlayer = new YT.Player("ytPlayer", {
-          videoId: YT_ID,
-          width: 1,
-          height: 1,
-          playerVars: {
-            autoplay: 1,
-            loop: 1,
-            playlist: YT_ID,
-            controls: 0,
-            modestbranding: 1,
-            playsinline: 1,
-          },
-          events: {
-            onReady: (e) => {
-              clearTimeout(timeout);
-              e.target.setVolume(72);
-              e.target.playVideo();
-              usingYouTube = true;
-              resolve();
-            },
-            onError: () => {
-              clearTimeout(timeout);
-              reject(new Error("youtube error"));
-            },
-          },
-        });
-      })
-  );
-}
-
-function startLocalAudio() {
-  return new Promise((resolve, reject) => {
-    audio = new Audio(LOCAL_SONG);
-    audio.loop = true;
-    audio.volume = 0.72;
-    const fail = () => reject(new Error("no local file"));
-    audio.addEventListener("error", fail, { once: true });
-    audio.play().then(resolve).catch(fail);
+function bindYouTubePlayer() {
+  loadYouTubeApi().then(() => {
+    if (!document.getElementById("ytPlayer") || ytPlayer) return;
+    ytPlayer = new YT.Player("ytPlayer", {
+      events: {
+        onReady: (e) => {
+          e.target.setVolume(72);
+          e.target.unMute();
+          e.target.playVideo();
+        },
+        onStateChange: (e) => {
+          if (e.data === YT.PlayerState.PLAYING) {
+            usingYouTube = true;
+            muted = false;
+            if (audio) {
+              audio.pause();
+              audio = null;
+            }
+            setMusicLabel(true);
+          }
+        },
+      },
+    });
   });
 }
 
-async function startMusic() {
-  try {
-    await startLocalAudio();
-  } catch {
-    try {
-      await startYouTube();
-    } catch {
-      nowPlaying.hidden = true;
-      return;
+function mountYouTubeNow() {
+  const mount = document.getElementById("ytWrap");
+  if (!mount) return;
+  if (mount.querySelector("iframe")) {
+    if (ytPlayer && ytPlayer.playVideo) {
+      ytPlayer.unMute();
+      ytPlayer.playVideo();
     }
+    return;
   }
-  nowPlaying.hidden = false;
+
+  const iframe = document.createElement("iframe");
+  iframe.id = "ytPlayer";
+  iframe.title = "H.E.R. — Best Part";
+  iframe.width = "220";
+  iframe.height = "124";
+  iframe.allow = "autoplay; encrypted-media; clipboard-write; picture-in-picture";
+  iframe.referrerPolicy = "strict-origin-when-cross-origin";
+  iframe.src = `https://www.youtube-nocookie.com/embed/${YT_ID}?autoplay=1&mute=0&loop=1&playlist=${YT_ID}&controls=0&playsinline=1&rel=0&modestbranding=1&enablejsapi=1&origin=${encodeURIComponent(location.origin)}`;
+  mount.appendChild(iframe);
+  usingYouTube = true;
+  bindYouTubePlayer();
+}
+
+function tryLocalAudio() {
+  audio = new Audio(LOCAL_SONG);
+  audio.loop = true;
+  audio.volume = 0.72;
+  audio.addEventListener("playing", () => {
+    usingYouTube = false;
+    muted = false;
+    setMusicLabel(true);
+    const mount = document.getElementById("ytWrap");
+    if (mount) mount.innerHTML = "";
+    ytPlayer = null;
+  }, { once: true });
+  audio.play().catch(() => {
+    audio = null;
+  });
+}
+
+function startMusicFromGesture() {
+  if (nowPlaying) nowPlaying.hidden = false;
+  setMusicLabel(musicPlaying);
+  tryLocalAudio();
+  mountYouTubeNow();
 }
 
 function setMuted(next) {
   muted = next;
-  nowPlaying.classList.toggle("is-muted", muted);
   if (audio) audio.muted = muted;
-  if (ytPlayer && ytPlayer.mute) {
-    if (muted) ytPlayer.mute();
-    else ytPlayer.unMute();
+  if (ytPlayer) {
+    if (muted && ytPlayer.mute) ytPlayer.mute();
+    if (!muted && ytPlayer.unMute) {
+      ytPlayer.unMute();
+      ytPlayer.playVideo();
+    }
   }
+  setMusicLabel(musicPlaying && !muted);
+}
+
+function toggleMusic() {
+  if (!musicPlaying || muted) {
+    muted = false;
+    startMusicFromGesture();
+    return;
+  }
+  setMuted(true);
 }
 
 function initTilts() {
@@ -319,7 +355,7 @@ function enterSite() {
   }, 1100);
 
   if (nowPlaying) nowPlaying.hidden = false;
-  try { startMusic(); } catch {}
+  startMusicFromGesture();
   try { burstPetals(); } catch {}
 }
 
@@ -338,8 +374,17 @@ if (nextPage) {
 }
 
 if (muteBtn) {
-  muteBtn.addEventListener("click", () => setMuted(!muted));
+  muteBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    toggleMusic();
+  });
 }
+
+if (nowPlaying) {
+  nowPlaying.addEventListener("click", toggleMusic);
+}
+
+loadYouTubeApi();
 
 if (location.hash === "#note") {
   enterSite();

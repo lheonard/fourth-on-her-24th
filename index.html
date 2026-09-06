@@ -54,8 +54,8 @@
     </div>
   </section>
 
-  <div class="now-playing" id="nowPlaying" hidden>
-    <button class="now-playing__toggle" id="muteBtn" type="button" aria-label="Mute song">
+  <div class="now-playing needs-play" id="nowPlaying" hidden>
+    <button class="now-playing__toggle" id="muteBtn" type="button" aria-label="Play song">
       <svg class="icon-sound" viewBox="0 0 24 24" fill="none" aria-hidden="true">
         <path d="M4 10v4h3l5 4V6L7 10H4z" fill="currentColor"/>
         <path d="M16 9.5c1.2 1 1.8 2.4 1.8 2.5s-.6 1.5-1.8 2.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
@@ -67,12 +67,10 @@
       </svg>
     </button>
     <div class="now-playing__copy">
-      <span>now playing</span>
+      <span id="nowPlayingLabel">tap to play</span>
       <strong>H.E.R. — Best Part</strong>
     </div>
   </div>
-  <div id="ytWrap" aria-hidden="true"></div>
-
   <section class="slide slide--sage page slide--solo-left" data-slide>
     <figure class="frame frame--solo-left tilt has-photo" style="--rot:-4deg">
       <div class="frame__shot"><img src="photos/02.jpg" alt="FouRth" /><div class="undeveloped"></div></div>
@@ -206,6 +204,7 @@
   </section>
   </main>
 
+  <div id="ytWrap" aria-hidden="true"></div>
   <script src="js/main.js"></script>
 </body>
 </html>

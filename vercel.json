@@ -2,6 +2,6 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": null,
   "installCommand": "echo skip",
-  "buildCommand": "rm -rf .vercel-out && mkdir .vercel-out && cp index.html .vercel-out/ && cp -R css js photos .vercel-out/",
+  "buildCommand": "rm -rf .vercel-out && mkdir .vercel-out && cp index.html .vercel-out/ && cp -R css js photos .vercel-out/ && (cp -R assets .vercel-out/ || true)",
   "outputDirectory": ".vercel-out"
 }
