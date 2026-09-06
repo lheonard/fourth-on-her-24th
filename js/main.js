@@ -198,6 +198,8 @@ function canLeavePage(dir) {
 }
 
 function lockPageScroll(e) {
+  if (!document.body.classList.contains("ready")) return;
+  if (e.target.closest("button, a, .intro__btn")) return;
   if (e.target.closest(".page.is-active.note, .page.is-active.slide--letter")) return;
   e.preventDefault();
 }
@@ -289,29 +291,40 @@ window.addEventListener("keydown", (e) => {
   }
 });
 
-function enterSite() {
+function enterSite(e) {
+  if (e) {
+    e.preventDefault();
+    e.stopPropagation();
+  }
   if (!intro || document.body.classList.contains("ready")) return;
 
   document.documentElement.classList.remove("intro-lock");
   document.body.classList.remove("intro-lock");
   document.body.classList.add("ready");
-
-  if (enter) enter.disabled = true;
-  if (nowPlaying) nowPlaying.hidden = false;
-  startMusic();
-  burstPetals();
   intro.classList.add("is-gone");
   if (topbar) topbar.hidden = false;
-  pages[0].classList.add("is-active");
-  updateChrome();
+  if (pages[0]) {
+    pages[0].classList.add("is-active");
+    updateChrome();
+  }
+  if (enter) enter.disabled = true;
+
   setTimeout(() => {
-    pages[0].classList.add("is-settled");
+    pages[0]?.classList.add("is-settled");
     intro.remove();
   }, 1100);
+
+  if (nowPlaying) nowPlaying.hidden = false;
+  try { startMusic(); } catch {}
+  try { burstPetals(); } catch {}
 }
+
+window.enterSite = enterSite;
 
 if (enter) {
   enter.addEventListener("click", enterSite);
+  enter.addEventListener("pointerup", enterSite);
+  enter.addEventListener("touchend", enterSite, { passive: false });
 }
 
 muteBtn.addEventListener("click", () => setMuted(!muted));
