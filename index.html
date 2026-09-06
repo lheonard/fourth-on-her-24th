@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en" class="intro-lock">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For FouRth — 24</title>
+  <meta name="description" content="A little something for FouRth, on the day the world got you." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Lavishly+Yours&family=Yomogi&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body class="intro-lock">
+  <div class="grain" aria-hidden="true"></div>
+  <div class="cursor" aria-hidden="true"></div>
+  <div id="petals" aria-hidden="true"></div>
+
+  <div class="intro" id="intro">
+    <div class="intro__inner">
+      <p class="intro__jp">お誕生日おめでとう</p>
+      <h1 class="intro__line">Today is about you</h1>
+      <figure class="intro__photo" data-src="photos/intro.jpg">
+        <div class="intro__shot">
+          <img alt="FouRth" />
+          <div class="undeveloped">her photo</div>
+        </div>
+        <figcaption>FouRth</figcaption>
+      </figure>
+      <button class="intro__btn" id="enter" type="button">
+        <span>Open it</span>
+        <small>Best Part starts here</small>
+      </button>
+    </div>
+  </div>
+
+  <p class="topbar" id="topbar" hidden>
+    <span class="mark" aria-label="FouRth on her 24th">
+      <span class="mark__name">FouRth</span>
+      <span class="mark__meta">on her <em>24</em>th</span>
+    </span>
+  </p>
+
+  <main class="story" id="story">
+  <section class="note page" id="note">
+    <div class="note__paper">
+      <div class="note__sheet" aria-hidden="true"></div>
+      <div class="note__ink">
+        <p>I wanted to make something a little different for you this year.</p>
+        <p>Not just a birthday message that disappears after you read it, but something you can come back to and remember how loved, appreciated, and celebrated you are.</p>
+        <p>So, I put together a few things that remind me of you, the qualities I admire, and the little things that make you… well, you.</p>
+        <p>Happy birthday, FouRth. I hope you enjoy this little piece of the way I see you. ❤️</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="now-playing" id="nowPlaying" hidden>
+    <button class="now-playing__toggle" id="muteBtn" type="button" aria-label="Mute song">
+      <svg class="icon-sound" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M4 10v4h3l5 4V6L7 10H4z" fill="currentColor"/>
+        <path d="M16 9.5c1.2 1 1.8 2.4 1.8 2.5s-.6 1.5-1.8 2.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        <path d="M18.5 7c2 1.8 3 3.8 3 5s-1 3.2-3 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+      </svg>
+      <svg class="icon-mute" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M4 10v4h3l5 4V6L7 10H4z" fill="currentColor"/>
+        <path d="M16 10l5 5M21 10l-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+      </svg>
+    </button>
+    <div class="now-playing__copy">
+      <span>now playing</span>
+      <strong>H.E.R. — Best Part</strong>
+    </div>
+  </div>
+  <div id="ytWrap" aria-hidden="true"></div>
+
+  <section class="slide slide--sage page slide--solo-left" data-slide>
+    <figure class="frame frame--solo-left tilt" style="--rot:-4deg" data-src="photos/02.jpg">
+      <div class="frame__shot"><img alt="FouRth" /><div class="undeveloped"></div></div>
+    </figure>
+    <div class="quality quality--long">
+      <p class="quality__kicker">one</p>
+      <h2 class="quality__word">your warmth <span class="quality__and">&amp;</span> presence</h2>
+      <div class="quality__line">
+        <p>You just have this way of making things feel better.</p>
+        <p>I love being around you. There's a warmth and comfort you bring with you that I can't quite explain. Even the simplest moments somehow feel a little nicer when you're there.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide slide--cream page slide--pair" data-slide>
+    <figure class="frame frame--tl tilt" style="--rot:-5deg" data-src="photos/03.jpg">
+      <div class="frame__shot"><img alt="FouRth" /><div class="undeveloped"></div></div>
+    </figure>
+    <figure class="frame frame--br tilt" style="--rot:4deg" data-src="photos/04.jpg">
+      <div class="frame__shot"><img alt="FouRth" /><div class="undeveloped"></div></div>
+    </figure>
+    <div class="quality quality--long">
+      <p class="quality__kicker">two</p>
+      <h2 class="quality__word">your looks</h2>
+      <div class="quality__line">
+        <p>I mean… have you seen yourself?</p>
+        <p>You're genuinely beautiful, but I think what makes it better is how effortlessly you carry it. You don't even have to try sometimes.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide slide--pink page slide--solo-right" data-slide>
+    <figure class="frame frame--solo-right tilt" style="--rot:3deg" data-src="photos/05.jpg">
+      <div class="frame__shot"><img alt="FouRth" /><div class="undeveloped"></div></div>
+    </figure>
+    <div class="quality quality--long">
+      <p class="quality__kicker">three</p>
+      <h2 class="quality__word">your caring</h2>
+      <div class="quality__line">
+        <p>You have a really caring side.</p>
+        <p>I've missed that about you — the little ways you show you care and make someone feel thought of.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide slide--rose page slide--pair" data-slide>
+    <figure class="frame frame--tr tilt" style="--rot:3deg" data-src="photos/06.jpg">
+      <div class="frame__shot"><img alt="FouRth" /><div class="undeveloped"></div></div>
+    </figure>
+    <figure class="frame frame--bl tilt" style="--rot:-4deg" data-src="photos/07.jpg">
+      <div class="frame__shot"><img alt="FouRth" /><div class="undeveloped"></div></div>
+    </figure>
+    <div class="quality quality--long">
+      <p class="quality__kicker">four</p>
+      <h2 class="quality__word">your perspective</h2>
+      <div class="quality__line">
+        <p>I really love the way you see things.</p>
+        <p>Sometimes you look at things differently from how I would, and I genuinely enjoy hearing your take on things. You have your own way of thinking and seeing the world, and I think that's one of the things that makes you so interesting to me.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide slide--burgundy page slide--solo-left" data-slide>
+    <figure class="frame frame--solo-left tilt" style="--rot:-3deg" data-src="photos/01.jpg">
+      <div class="frame__shot"><img alt="FouRth" /><div class="undeveloped"></div></div>
+    </figure>
+    <div class="quality quality--light quality--long">
+      <p class="quality__kicker">five</p>
+      <h2 class="quality__word">simply you</h2>
+      <div class="quality__line">
+        <p>I think this might be my favorite thing about you — you’re simply you.</p>
+        <p>There’s something about the way you exist, the little things you do, the way you smile, laugh, talk, and carry yourself. I could list a hundred things I like about you, but somehow, it all comes back to one thing:</p>
+        <p class="quality__close">I just really, really like you.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide slide--letter page" data-slide>
+    <div class="letter-slide">
+      <p class="letter-slide__eyebrow">a letter, for you</p>
+      <h2 class="letter-slide__title">FouRth,</h2>
+      <div class="letter-slide__paper">
+        <div class="note__sheet" aria-hidden="true"></div>
+        <div class="note__ink">
+          <p>On your birthday, I just want to take a moment to tell you how much you mean to me.</p>
+          <p>You came into my life at a time when I was really down. You listened to me, you comforted me in your own way, and somewhere along the line, I became really, really fond of you. I mean, you already know I've always had a thing for you. 😂</p>
+          <p>But I don't think I've ever properly told you just how much those moments meant to me.</p>
+          <p>You became a safe space for me. I found myself always wanting to hear from you, wanting to talk to you, and looking forward to having you around. And if I'm being completely honest, I've always seen you as someone I could genuinely have a future with — someone I've always felt could be the one for me.</p>
+          <p>I could talk endlessly about how beautiful you are. I could tell you a hundred times how much you mean to me. But even then, I don't think I'd ever find the right words to explain just how much I appreciate you.</p>
+          <p>I'm honestly lost for words.</p>
+          <p>I'm grateful for the person you are, for the moments we've shared, for the comfort you've given me, and even for the little things you probably don't realize I've noticed. You have left a mark on my life in a way that's difficult to put into words, and regardless of where life takes us, I'll always be grateful that I got to know you the way I have.</p>
+          <p>And no matter what happens, I'll always have your back. That's how much you mean to me. Even when things aren't perfect, even when life takes us in different directions, I want you to know that I'll always genuinely want the best for you and I'll always be rooting for you.</p>
+          <p>My prayer for you is that this new year of your life brings you closer to everything you've been hoping and praying for. May God protect you, guide your steps, give you wisdom in every decision, and surround you with people who genuinely love and value you.</p>
+          <p>And above everything, I pray that you never lose the beautiful person you are. May this year be kinder to you, may you have more reasons to smile, and may God bless you with a life that's even more beautiful than you imagined.</p>
+          <p>Happy birthday, FouRth.</p>
+          <p>You mean more to me than I probably know how to say.</p>
+          <p>And I'm really, really glad you're here. ❤️</p>
+          <p class="letter-slide__sign">— Leonard</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide slide--finale page" data-slide>
+    <div class="orbit" aria-hidden="true">
+      <figure class="frame orbit__item orbit__item--1" style="--rot:-3deg" data-src="photos/03.jpg">
+        <div class="frame__shot"><img alt="FouRth" /><div class="undeveloped"></div></div>
+      </figure>
+      <figure class="frame orbit__item orbit__item--4" style="--rot:4deg" data-src="photos/04.jpg">
+        <div class="frame__shot"><img alt="FouRth" /><div class="undeveloped"></div></div>
+      </figure>
+    </div>
+    <div class="finale">
+      <p class="finale__jp">お誕生日おめでとう</p>
+      <h2 class="finale__title">
+        <span class="finale__wish">happy birthday</span>
+        <span class="finale__name">FouRth</span>
+      </h2>
+      <p class="finale__from">yours, Leonard · 愛してる</p>
+    </div>
+  </section>
+
+  <section class="slide slide--stay page" data-slide>
+    <div class="stay">
+      <p class="stay__kicker">always</p>
+      <p class="stay__line">this will forever be up.</p>
+      <p class="stay__line">come back here on days you feel down</p>
+      <p class="stay__line">cause every single word here is true</p>
+      <p class="stay__close">and know i'll always be here</p>
+    </div>
+  </section>
+  </main>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
