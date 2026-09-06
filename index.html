@@ -26,10 +26,10 @@
         </div>
         <figcaption>FouRth</figcaption>
       </figure>
-      <button class="intro__btn" id="enter" type="button" onclick="if (window.enterSite) { window.enterSite(event); }">
+      <a class="intro__btn" id="enter" href="#note">
         <span>Open it</span>
         <small>Best Part starts here</small>
-      </button>
+      </a>
     </div>
   </div>
 
@@ -206,13 +206,5 @@
   </main>
 
   <script src="js/main.js"></script>
-  <script>
-    (function () {
-      var btn = document.getElementById("enter");
-      if (!btn || typeof enterSite !== "function") return;
-      btn.addEventListener("pointerup", enterSite);
-      btn.addEventListener("touchend", enterSite, { passive: false });
-    })();
-  </script>
 </body>
 </html>

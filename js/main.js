@@ -291,11 +291,7 @@ window.addEventListener("keydown", (e) => {
   }
 });
 
-function enterSite(e) {
-  if (e) {
-    e.preventDefault();
-    e.stopPropagation();
-  }
+function enterSite() {
   if (!intro || document.body.classList.contains("ready")) return;
 
   document.documentElement.classList.remove("intro-lock");
@@ -307,7 +303,6 @@ function enterSite(e) {
     pages[0].classList.add("is-active");
     updateChrome();
   }
-  if (enter) enter.disabled = true;
 
   setTimeout(() => {
     pages[0]?.classList.add("is-settled");
@@ -323,8 +318,6 @@ window.enterSite = enterSite;
 
 if (enter) {
   enter.addEventListener("click", enterSite);
-  enter.addEventListener("pointerup", enterSite);
-  enter.addEventListener("touchend", enterSite, { passive: false });
 }
 
 muteBtn.addEventListener("click", () => setMuted(!muted));
